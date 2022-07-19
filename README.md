@@ -13,6 +13,25 @@
         <p>&nbsp;&nbsp;&nbsp;&nbsp;name = models.CharField(max_length=255)</p>
         <p>&nbsp;&nbsp;&nbsp;&nbsp;admin_email= models.EmailFiel(max_length=255)</p>
     </li>
+    <li>
+        <p>class Hotel(models.Model):</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;name = models.CharField(max_length=255)</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;company = models.ForeignKey(Company,on_delete=models.CASCADE)</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;admin_email= models.EmailFiel(max_length=255)</p>
+    </li>
+    <li>
+        <p>class Room(models.Model):</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;name = models.CharField(max_length=255)</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;price = models.IntegerField()</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;hotel = models.ForeignKey(Hotel,on_delete=models.CASCADE)</p>
+    </li>
+    <li>
+        <p>class Reservation(models.Model):</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;name = models.CharField(max_length=255)</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;room = models.ForeignKey(Room,on_delete=models.CASCADE)</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;date_to = models.DateTimeField()</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;date_from = models.DateTimeField()</p>
+    </li>
 </ul>
 <p>Una implementacion mas eficiente es el uso de querysets que permite hacer una sola consulta a la base de datos. Para este caso conviene usar esta query <strong>Reservation.objects.filter(room__hotel__company_id=cp_id)</strong>. Esta query permite acceder a todas las reservaciones de una company conociendo su id. Cabe destacar que esta query implementa un span de las relaciones de reservation--> room --> hotel--> company_id  a traves del uso del lookup <strong>room__hotel__company_id</strong>.     
 </p>
