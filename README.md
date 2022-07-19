@@ -10,8 +10,8 @@
 <ul>
     <li>
         <code>
-            class Company(models.Model):
-                name = models.CharField(max_length=255)
+            class Company(models.Model):/n\n
+                name = models.CharField(max_length=255)\n
                 admin_email= models.EmailFiel(max_length=255)
         </code>
     </li>
