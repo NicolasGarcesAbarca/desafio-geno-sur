@@ -8,7 +8,10 @@
 <h3>Pregunta 2</h3>
 <p>Presupongo los siguientes modelos</p>
 <ul>
-<li><p>class Company(models.Model):</p></li>
+    <li>
+        <p>class Company(models.Model):</p>
+        <p>   name=models.CharField(max_length=100)</p>
+    </li>
 </ul>
 <p>Una implementacion mas eficiente es el uso de querysets que permite hacer una sola consulta a la base de datos. Para este caso conviene usar esta query <strong>Reservation.objects.filter(room__hotel__company_id=cp_id)</strong>. Esta query permite acceder a todas las reservaciones de una company conociendo su id. Cabe destacar que esta query implementa un span de las relaciones de reservation--> room --> hotel--> company_id  a traves del uso del lookup <strong>room__hotel__company_id</strong>.     
 </p>
