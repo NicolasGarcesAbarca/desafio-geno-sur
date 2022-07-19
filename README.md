@@ -36,7 +36,7 @@
 <p>Una implementacion mas eficiente es el uso de querysets que permite hacer una sola consulta a la base de datos. Para este caso conviene usar esta query <strong>Reservation.objects.filter(room__hotel__company_id=cp_id)</strong>. Esta query permite acceder a todas las reservaciones de una company conociendo su id. Cabe destacar que esta query implementa un span de las relaciones de reservation--> room --> hotel--> company_id  a traves del uso del lookup <strong>room__hotel__company_id</strong>. El ORM de django implementa por debajo los JOINs necesarios para realizar la query. Finalmente la función <strong>reservations_by_date</strong> seria:     
 </p>
 <h6>def reservations_by_date:</h6>
-<h6>&nbsp;&nbsp;&nbsp;&nbsp;qs_reservation_dates = Reservation.objects<br/>.filter(room__hotel__company_id=self.id).order_by('date_from').values('date_from' , 'date_to')</h6>
+<h6>&nbsp;&nbsp;&nbsp;&nbsp;qs_reservation_dates = Reservation.objects.filter(room__hotel__company_id=self.id).order_by('date_from').values('date_from' , 'date_to')</h6>
 <h6>&nbsp;&nbsp;&nbsp;&nbsp;reservation_dates_list = list(qs_reservation_dates)</h6>
 <h6>&nbsp;&nbsp;&nbsp;&nbsp;for reservation in reservation_dates_list:</h6>
 <h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for day in range(0,(reservation['date_to'] - reservation['date_to']).days)</h6>
@@ -45,6 +45,14 @@
 <h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reservations_by_date[date] += 1</h6>
 <h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:</h6>
 <h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reservations_by_date[date] = 1</h6>
+<h6>&nbsp;&nbsp;&nbsp;&nbsp;return reservations_by_dates</h6>
+<h3>Pregunta 3</h3>
+<p>Mi propuesta de modelo <strong>Adress</strong></p>
 
-
+<h3>Pregunta 4</h3>
+<h6>class Reservation(models.Model):</h6>
+<h6>&nbsp;&nbsp;&nbsp;&nbsp;name = models.CharField(max_length=255)</h6>
+<h6>&nbsp;&nbsp;&nbsp;&nbsp;room = models.ForeignKey(Room,on_delete=models.CASCADE)</h6>
+<h6>&nbsp;&nbsp;&nbsp;&nbsp;date_to = models.DateTimeField()</h6>
+<h6>&nbsp;&nbsp;&nbsp;&nbsp;date_from = models.DateTimeField()</h6>
 </main>
