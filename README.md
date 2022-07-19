@@ -35,7 +35,7 @@
 </ul>
 <p>Una implementacion mas eficiente es el uso de querysets que permite hacer una sola consulta a la base de datos. Para este caso conviene usar esta query <strong>Reservation.objects.filter(room__hotel__company_id=cp_id)</strong>. Esta query permite acceder a todas las reservaciones de una company conociendo su id. Cabe destacar que esta query implementa un span de las relaciones de reservation--> room --> hotel--> company_id  a traves del uso del lookup <strong>room__hotel__company_id</strong>. El ORM de django implementa por debajo los JOINs necesarios para realizar la query. Finalmente la función <strong>reservations_by_date</strong> seria:     
 </p>
-<p>def reservations_by_date:</p>
+<p>`def reservations_by_date:`</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;qs_reservation_dates = Reservation.objects.filter(room__hotel__company_id=self.id).order_by('date_from').values('date_from','date_to')</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;reservation_dates_list = list(qs_reservation_dates)</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;for reservation in reservation_dates_list:</p>
