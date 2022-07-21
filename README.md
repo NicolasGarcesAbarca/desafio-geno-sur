@@ -49,10 +49,13 @@
 <h3>Pregunta 3</h3>
 <p>Mi propuesta de modelo <strong>Adress</strong></p>
 
-<h3>Pregunta 4</h3>
 <h6>class Reservation(models.Model):</h6>
-<h6>&nbsp;&nbsp;&nbsp;&nbsp;name = models.CharField(max_length=255)</h6>
-<h6>&nbsp;&nbsp;&nbsp;&nbsp;room = models.ForeignKey(Room,on_delete=models.CASCADE)</h6>
-<h6>&nbsp;&nbsp;&nbsp;&nbsp;date_to = models.DateTimeField()</h6>
-<h6>&nbsp;&nbsp;&nbsp;&nbsp;date_from = models.DateTimeField()</h6>
+<h6>&nbsp;&nbsp;&nbsp;&nbsp;region = models.CharField(max_length=50)</h6>
+<h6>&nbsp;&nbsp;&nbsp;&nbsp;province = models.CharField(max_length=60)</h6>
+<h6>&nbsp;&nbsp;&nbsp;&nbsp;commune = models.CharField(max_length=20)</h6>
+<h6>&nbsp;&nbsp;&nbsp;&nbsp;adress = models.CharField(max_length=1024)</h6>
+<h6>&nbsp;&nbsp;&nbsp;&nbsp;zip_code = models.CharField(max_length=14)</h6>
+<h6>&nbsp;&nbsp;&nbsp;&nbsp;latitutde = models.DecimalField(max_digits=9, decimal_places=6)</h6>
+<h6>&nbsp;&nbsp;&nbsp;&nbsp;longitude = models.DecimalField(max_digits=9, decimal_places=6)/h6>
+<h3>Pregunta 4</h3>
 </main>
