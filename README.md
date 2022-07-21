@@ -62,9 +62,9 @@
 <h3>Pregunta 4</h3>
 <p>La validación la añadiría en la clase ReservationForm dentro de forms.py </p>
 <h6>class ReservationForm(forms.ModelForm):</h6>
-<h6>class Meta:</h6>
-<h6>model = Reservation
-<h6>fields = ['name', 'room', 'date_from', 'date_to']</h6>
+<h6>&ensp;class Meta:</h6>
+<h6>&emsp;model = Reservation
+<h6>&emsp;fields = ['name', 'room', 'date_from', 'date_to']</h6>
 <h6>def clean(self):</h6>
 <h6>cleaned_data = super().clean()</h6>
 <h6>date_from = cleaned_data.get('date_from')</h6>
