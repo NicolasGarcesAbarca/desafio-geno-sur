@@ -75,9 +75,9 @@
 <h6>&emsp;&emsp;if is_room_blocked( cleaned_data.get('room'), date_from, date_to):</h6>
 <h6>&emsp;&emsp;&emsp;raise forms.ValidationError('Room is not available in that range.')</h6>
 <h6>&emsp;&emsp;return cleaned_data</h6>
-
+<br/>
 <h6>def is_room_blocked(room, date_from, date_to):</h6>
-<h6>checkin_impossible=Reservation.objects.filter(room=room,date_from__lte=date_from, date_to__gte=date_from).exists()</h6>
-<h6>checkout_impossible=Reservation.objects.filter(room=room, date_from__lte=date_to, date_to__gte=date_to).exists()</h6>
-<h6>return ( checkout_impossible or checkin_impossible)</h6>
+<h6>&emsp;checkin_impossible=Reservation.objects.filter(room=room,date_from__lte=date_from, date_to__gte=date_from).exists()</h6>
+<h6>&emsp;checkout_impossible=Reservation.objects.filter(room=room, date_from__lte=date_to, date_to__gte=date_to).exists()</h6>
+<h6>&emsp;return ( checkout_impossible or checkin_impossible)</h6>
 </main>
