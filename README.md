@@ -57,5 +57,27 @@
 <h6>&nbsp;&nbsp;&nbsp;&nbsp;zip_code = models.CharField(max_length=14)</h6>
 <h6>&nbsp;&nbsp;&nbsp;&nbsp;latitutde = models.DecimalField(max_digits=9, decimal_places=6)</h6>
 <h6>&nbsp;&nbsp;&nbsp;&nbsp;longitude = models.DecimalField(max_digits=9, decimal_places=6)/h6>
+
+
 <h3>Pregunta 4</h3>
+<p>La validación la añadiría en la clase ReservationForm dentro de forms.py </p>
+<h6>class ReservationForm(forms.ModelForm):</h6>
+<h6>class Meta:</h6>
+<h6>model = Reservation
+<h6>fields = ['name', 'room', 'date_from', 'date_to']</h6>
+<h6>def clean(self):</h6>
+<h6>cleaned_data = super().clean()</h6>
+<h6>date_from = cleaned_data.get('date_from')</h6>
+<h6>date_to = cleaned_data.get('date_to')</h6>
+<h6>print('blocked? ',is_room_blocked( cleaned_data.get('room'), date_from, date_to))</h6>
+<h6>if date_from > date_to:</h6>
+<h6>raise forms.ValidationError('Check-out date must be after check-in date.')</h6>
+<h6>if is_room_blocked( cleaned_data.get('room'), date_from, date_to):</h6>
+<h6>raise forms.ValidationError('Room is not available in that range.')</h6>
+<h6>return cleaned_data</h6>
+
+<h6>def is_room_blocked(room, date_from, date_to):</h6>
+<h6>checkin_impossible=Reservation.objects.filter(room=room,date_from__lte=date_from, date_to__gte=date_from).exists()</h6>
+<h6>checkout_impossible=Reservation.objects.filter(room=room, date_from__lte=date_to, date_to__gte=date_to).exists()</h6>
+<h6>return ( checkout_impossible or checkin_impossible)</h6>
 </main>
