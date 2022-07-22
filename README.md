@@ -75,3 +75,18 @@
 <h6>&emsp;checkout_impossible=Reservation.objects.filter(room=room, date_from__lte=date_to, date_to__gte=date_to).exists()</h6>
 <h6>&emsp;return ( checkout_impossible or checkin_impossible)</h6>
 </main>
+
+<h2>Seccion 3</h2>
+
+<p>La app está dentro el folder section 3 y se construye a partir del docker-compose.yml donde existen tres servicios:</p>
+<ul>
+    <li>
+        <p><strong>db</strong> se crea a partir de la imagen postgres de Docker HUB hay definición del volumen y variables de entorno para acceder a la db</p>
+    </li>
+    <li>
+        <p><strong>web</strong> se crea a partir del Dockerfile incluido aquí. Este es una imagen de python3 que instala los paquetes que aparecen dentro de requirements.txt. El servicio <strong>web</strong> también define variables de entorno,puertos,volumen y comando python runserver que corre al inicio de cada compose-up </p>
+    </li>
+    <li>
+        <p><strong>browser</strong> se crea a partir de la imagen selenium/standalone-chrome:91.0. Esta imagen implenta un server con chrome browser que permite hacer test desde el container web usando el driver remoto de Selenium. </p>
+    </li>
+</ul>
