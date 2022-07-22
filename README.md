@@ -94,7 +94,7 @@
 <p>Pasos para levantar la app en local</p>
 <ol>
   <li>
-    <p>Crear un volumen en el container web</p>
-    `docker volume create --name=db-data`
+    <p>Ejecutar el comando django-admin dentro del container <strong>web</strong> (en os linux sebe anteponer sudo)</p>
+    <code>docker-compose run web django-admin startproject app . </code>
   </li>
 </ol>
