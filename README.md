@@ -90,3 +90,11 @@
         <p><strong>browser</strong> se crea a partir de la imagen selenium/standalone-chrome:91.0. Esta imagen implenta un server con chrome browser que permite hacer test desde el container web usando el driver remoto de Selenium. </p>
     </li>
 </ul>
+
+<p>Pasos para levantar la app en local</p>
+<ol>
+  <li>
+    <p>Crear un volumen en el container web</p>
+    `docker volume create --name=db-data`
+  </li>
+</ol>
