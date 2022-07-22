@@ -94,7 +94,12 @@
 <p>Pasos para levantar la app en local</p>
 <ol>
   <li>
-    <p>Ejecutar el comando django-admin dentro del container <strong>web</strong> (en os linux sebe anteponer sudo)</p>
+    <p>Ejecutar el comando django-admin dentro del container <strong>web</strong> (en os linux se debe anteponer sudo)</p>
     <code>docker-compose run web django-admin startproject app . </code>
+  </li>
+  <li>
+    <p> En linux se deben cambiar los permisos de los archivos creados por el comando anterior</p>
+    <code>sudo chown -R $USER:$USER composeexample manage.py app/</code>
+    <p>Esto también se debe realizar cuando se ejecuta commando python manage.py startapp dentro del container <strong>web</strong></p>
   </li>
 </ol>
