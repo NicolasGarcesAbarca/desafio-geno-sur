@@ -1,9 +1,9 @@
 <main>
-<h1>Desafio genosur</h1>
+<h1>Desafío genosur</h1>
 
-<h2>Seccion 2</h2> 
+<h2>Sección 2</h2> 
 <h3>Pregunta 1</h3>
-<p>La forma es ineficiente porque son 3 for los que se tienen que recorrer Hotels, Rooms y Reservations. La cantidad de  queries es nro_hoteles * nro_rooms * nro_reservations lo cual crece muy rapido. Por ejemplo con 10 hoteles, 10 habitaciones y 10 reservaciones, la cantidad de queries es de 1.000 aprox.
+<p>La forma es ineficiente porque son 3 for los que se tienen que recorrer Hotels, Rooms y Reservations. La cantidad de  queries es nro_hoteles * nro_rooms * nro_reservations lo cual crece muy rápido. Por ejemplo, con 10 hoteles, 10 habitaciones y 10 reservaciones, la cantidad de queries es de 1.000 aprox.
 </p>
 <h3>Pregunta 2</h3>
 <p>Presupongo los siguientes modelos, solo creo las foreign keys para los modelos que se necesitan en el problema</p>
@@ -27,7 +27,7 @@
 <h6>&emsp;date_to = models.DateTimeField()</h6>
 <h6>&emsp;date_from = models.DateTimeField()</h6>
 <br/>
-<p>Una implementacion mas eficiente es el uso de querysets que permite hacer una sola consulta a la base de datos. Para este caso conviene usar esta query <strong>Reservation.objects.filter(room__hotel__company_id=cp_id)</strong>. Esta query permite acceder a todas las reservaciones de una company conociendo su id. Cabe destacar que esta query implementa un span de las relaciones de reservation--> room --> hotel--> company_id  a traves del uso del lookup <strong>room__hotel__company_id</strong>. El ORM de django implementa por debajo los JOINs necesarios para realizar la query. Finalmente la función <strong>reservations_by_date</strong> seria:     
+<p>Una implementación más eficiente es el uso de querysets que permite hacer una sola consulta a la base de datos. Para este caso conviene usar esta query <strong>Reservation.objects.filter(room__hotel__company_id=cp_id)</strong>. Esta query permite acceder a todas las reservaciones de una company conociendo su id. Cabe destacar que esta query implementa un span de las relaciones de reservation--> room --> hotel--> company_id  a traves del uso del lookup <strong>room__hotel__company_id</strong>. El ORM de django implementa por debajo los JOINs necesarios para realizar la query. Finalmente la función <strong>reservations_by_date</strong> sería:     
 </p>
 <h6>def reservations_by_date:</h6>
 <h6>&emsp;qs_reservation_dates = Reservation.objects.filter(room__hotel__company_id=self.id).order_by('date_from').values('date_from' , 'date_to')</h6>
@@ -77,29 +77,40 @@
 </main>
 
 <h2>Seccion 3</h2>
-
+<a href="http://django-genosur.herokuapp.com">link a la app en heroku</a>
 <p>La app está dentro el folder section 3 y se construye a partir del docker-compose.yml donde existen tres servicios:</p>
 <ul>
     <li>
         <p><strong>db</strong> se crea a partir de la imagen postgres de Docker HUB hay definición del volumen y variables de entorno para acceder a la db</p>
     </li>
     <li>
-        <p><strong>web</strong> se crea a partir del Dockerfile incluido aquí. Este es una imagen de python3 que instala los paquetes que aparecen dentro de requirements.txt. El servicio <strong>web</strong> también define variables de entorno,puertos,volumen y comando python runserver que corre al inicio de cada compose-up </p>
+        <p><strong>web</strong> se crea a partir del Dockerfile incluido aquí. Este es una imagen de python3 que instala los paquetes que aparecen dentro de requirements.txt que son: django 3, psycopg2 2.8 el driver para la base de datos postgres, requests 2.28 para hacer peticiones en http y selenium 4.3 para el testing. El servicio <strong>web</strong> también define variables de entorno,puertos,volumen y comando python runserver que corre al inicio de cada compose-up </p>
     </li>
     <li>
-        <p><strong>browser</strong> se crea a partir de la imagen selenium/standalone-chrome:91.0. Esta imagen implenta un server con chrome browser que permite hacer test desde el container web usando el driver remoto de Selenium. </p>
+        <p><strong>browser</strong> se crea a partir de la imagen selenium/standalone-chrome:91.0. Esta imagen implenta un server con chrome browser que permite hacer test desde el container web usando el webdriver remoto de Selenium. </p>
     </li>
 </ul>
 
 <p>Pasos para levantar la app en local</p>
 <ol>
   <li>
-    <p>Ejecutar el comando django-admin dentro del container <strong>web</strong> (en os linux se debe anteponer sudo)</p>
-    <code>docker-compose run web django-admin startproject app . </code>
+    <p>Ejecutar el comando para levantar docker-compose.yml <strong>web</strong> (en os linux se debe anteponer sudo)</p>
+    <code>docker-compose up</code>
   </li>
   <li>
-    <p> En linux se deben cambiar los permisos de los archivos creados por el comando anterior</p>
-    <code>sudo chown -R $USER:$USER composeexample manage.py app/</code>
-    <p>Esto también se debe realizar cuando se ejecuta commando python manage.py startapp dentro del container <strong>web</strong></p>
+    <p> En caso de problemas con el permiso a algún folder en linux/unix</p>
+    <code>sudo chown -R $USER:$USER directorio_del_folder</code>
+  </li>
+</ol>
+
+<p>Pasos para testear</p>
+<ol>
+  <li>
+    <p>Entrar dentro del container shell</p>
+    <code>docker exec -it sec3_web_1 bash</code>
+  </li>
+  <li>
+    <p> Una vez dentro del shell </p>
+    <code>python manage.py test</code>
   </li>
 </ol>
