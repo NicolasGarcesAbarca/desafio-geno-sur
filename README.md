@@ -77,7 +77,9 @@
 </main>
 
 <h2>Seccion 3</h2>
+<br/>
 <a href="http://django-genosur.herokuapp.com">link a la app en heroku</a>
+<br/>
 <p>La app está dentro el folder section 3 y se construye a partir del docker-compose.yml donde existen tres servicios:</p>
 <ul>
     <li>
@@ -87,7 +89,7 @@
         <p><strong>web</strong> se crea a partir del Dockerfile incluido aquí. Este es una imagen de python3 que instala los paquetes que aparecen dentro de requirements.txt que son: django 3, psycopg2 2.8 el driver para la base de datos postgres, requests 2.28 para hacer peticiones en http y selenium 4.3 para el testing. El servicio <strong>web</strong> también define variables de entorno,puertos,volumen y comando python runserver que corre al inicio de cada compose-up </p>
     </li>
     <li>
-        <p><strong>browser</strong> se crea a partir de la imagen selenium/standalone-chrome:91.0. Esta imagen implenta un server con chrome browser que permite hacer test desde el container web usando el webdriver remoto de Selenium. </p>
+        <p><strong>browser</strong> se crea a partir de la imagen selenium/standalone-chrome:91.0. Esta imagen implenta un server con chrome browser que permite hacer test desde el container <strong>web</strong> usando el webdriver remoto de Selenium. </p>
     </li>
 </ul>
 
@@ -103,10 +105,12 @@
   </li>
 </ol>
 
-<p>Pasos para testear</p>
+<p>Testing</p>
+<p>Los tests están en foxes/tests.py y se hicieron usando selenium desde el container <strong>web</strong> que a través del webdriver remoto se conecta y controla el browser  chrome dentro del container <strong>browser</strong>. </p>
+<p>Pasos para ejecutar el test</p>
 <ol>
   <li>
-    <p>Entrar dentro del container shell</p>
+    <p>Entrar dentro la shell del container <strong>web</strong></p>
     <code>docker exec -it sec3_web_1 bash</code>
   </li>
   <li>
