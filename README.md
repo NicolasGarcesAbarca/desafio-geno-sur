@@ -77,6 +77,7 @@
 </main>
 
 <h2>Seccion 3</h2>
+<h3>App containers</h3>
 <br/>
 <a href="http://django-genosur.herokuapp.com">link a la app en heroku</a>
 <br/>
@@ -105,7 +106,7 @@
   </li>
 </ol>
 
-<p>Testing</p>
+<h3>Testing</h3>
 <p>Los tests están en foxes/tests.py y se hicieron usando selenium desde el container <strong>web</strong> que a través del webdriver remoto se conecta y controla el browser  chrome dentro del container <strong>browser</strong>. </p>
 <p>Pasos para ejecutar el test</p>
 <ol>
