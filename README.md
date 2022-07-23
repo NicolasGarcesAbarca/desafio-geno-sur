@@ -84,8 +84,7 @@
 <p>La app está dentro el folder sec3/app y se construye a partir del docker-compose.yml donde existen tres servicios:</p>
 <ul>
     <li>
-        <p><strong>db</strong> se crea a partir de la imagen postgres de Docker HUB hay definición del volumen y variables de entorno para acceder a la db</p>
-        <p>El volumen se encuentra apuntando a data/db y solo contiene las tablas de la migración inicial.</p>
+        <p><strong>db</strong> se crea a partir de la imagen postgres de Docker HUB hay definición del volumen que se encuentra apuntando a data/dby variables de entorno para acceder a la db</p>
     </li>
     <li>
         <p><strong>web</strong> se crea a partir del Dockerfile incluido aquí. Este es una imagen de python3 que instala los paquetes que aparecen dentro de requirements.txt que son: django 3, psycopg2 2.8 el driver para la base de datos postgres, requests 2.28 para hacer peticiones en http y selenium 4.3 para el testing. El servicio <strong>web</strong> también define variables de entorno,puertos,volumen en ./app y comando python runserver que corre al inicio de cada compose-up </p>
