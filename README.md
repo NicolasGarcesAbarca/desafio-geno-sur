@@ -79,18 +79,19 @@
 <h2>Seccion 3</h2>
 <h3>App containers</h3>
 <br/>
-<a href="http://django-genosur.herokuapp.com">link a la app en heroku</a>
+<a href="https://django-genosur.herokuapp.com">link a la app en heroku</a>
 <br/>
-<p>La app está dentro el folder section 3 y se construye a partir del docker-compose.yml donde existen tres servicios:</p>
+<p>La app está dentro el folder sec3/app y se construye a partir del docker-compose.yml donde existen tres servicios:</p>
 <ul>
     <li>
         <p><strong>db</strong> se crea a partir de la imagen postgres de Docker HUB hay definición del volumen y variables de entorno para acceder a la db</p>
+        <p>El volumen se encuentra apuntando a data/db y solo contiene las tablas de la migración inicial.</p>
     </li>
     <li>
-        <p><strong>web</strong> se crea a partir del Dockerfile incluido aquí. Este es una imagen de python3 que instala los paquetes que aparecen dentro de requirements.txt que son: django 3, psycopg2 2.8 el driver para la base de datos postgres, requests 2.28 para hacer peticiones en http y selenium 4.3 para el testing. El servicio <strong>web</strong> también define variables de entorno,puertos,volumen y comando python runserver que corre al inicio de cada compose-up </p>
+        <p><strong>web</strong> se crea a partir del Dockerfile incluido aquí. Este es una imagen de python3 que instala los paquetes que aparecen dentro de requirements.txt que son: django 3, psycopg2 2.8 el driver para la base de datos postgres, requests 2.28 para hacer peticiones en http y selenium 4.3 para el testing. El servicio <strong>web</strong> también define variables de entorno,puertos,volumen en ./app y comando python runserver que corre al inicio de cada compose-up </p>
     </li>
     <li>
-        <p><strong>browser</strong> se crea a partir de la imagen selenium/standalone-chrome:91.0. Esta imagen implenta un server con chrome browser que permite hacer test desde el container <strong>web</strong> usando el webdriver remoto de Selenium. </p>
+        <p><strong>browser</strong> se crea a partir de la imagen selenium/standalone-chrome:91.0. Esta imagen implenta un server con chrome browser que es controlado desde el container <strong>web</strong> usando el webdriver remoto de Selenium para poder realizar los test. </p>
     </li>
 </ul>
 
@@ -107,7 +108,7 @@
 </ol>
 
 <h3>Testing</h3>
-<p>Los tests están en foxes/tests.py y se hicieron usando selenium desde el container <strong>web</strong> que a través del webdriver remoto se conecta y controla el browser  chrome dentro del container <strong>browser</strong>. </p>
+<p>Los tests están en foxes/tests.py y se ejecutan desde el container <strong>web</strong> con el webdriver remoto de selenium. Este se conecta al browser chrome dentro <strong>browser</strong>. </p>
 <p>Pasos para ejecutar el test</p>
 <ol>
   <li>
