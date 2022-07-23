@@ -3,10 +3,10 @@
 
 <h2>Sección 2</h2> 
 <h3>Pregunta 1</h3>
-<p>La forma es ineficiente porque son 3 for los que se tienen que recorrer Hotels, Rooms y Reservations. La cantidad de  queries es nro_hoteles * nro_rooms * nro_reservations lo cual crece muy rápido. Por ejemplo, con 10 hoteles, 10 habitaciones y 10 reservaciones, la cantidad de queries es de 1.000 aprox.
+<p>La forma es ineficiente porque son 3 for anidados que se recorren y generan queries. En este ejemplo se recorren los hoteles, las habitaciones (Rooms) de cada hotel y reservaciones de cada cuarto. Por ende, la cantidad de  queries es nro_hoteles * nro_rooms * nro_reservations lo cual crece muy rápido. Por ejemplo, con 10 hoteles, 10 habitaciones y 10 reservaciones habrían 1000 queries a la base de datos.
 </p>
 <h3>Pregunta 2</h3>
-<p>Presupongo los siguientes modelos, solo creo las foreign keys para los modelos que se necesitan en el problema</p>
+<p>Presupongo los siguientes modelos (solo uso los modelos que se necesitan para generar la queryset)</p>
 <h6>class Company(models.Model):</h6>
 <h6>&emsp;name = models.CharField(max_length=255)</h6>
 <h6>&emsp;admin_email= models.EmailFiel(max_length=255)</h6>
@@ -27,7 +27,7 @@
 <h6>&emsp;date_to = models.DateTimeField()</h6>
 <h6>&emsp;date_from = models.DateTimeField()</h6>
 <br/>
-<p>Una implementación más eficiente es el uso de querysets que permite hacer una sola consulta a la base de datos. Para este caso conviene usar esta query <strong>Reservation.objects.filter(room__hotel__company_id=cp_id)</strong>. Esta query permite acceder a todas las reservaciones de una company conociendo su id. Cabe destacar que esta query implementa un span de las relaciones de reservation--> room --> hotel--> company_id  a traves del uso del lookup <strong>room__hotel__company_id</strong>. El ORM de django implementa por debajo los JOINs necesarios para realizar la query. Finalmente la función <strong>reservations_by_date</strong> sería:     
+<p>Una implementación más eficiente es el uso de querysets que permite hacer una sola consulta a la base de datos. Para este caso conviene usar <strong>Reservation.objects.filter(room__hotel__company_id=cp_id)</strong>. Esta queryset permite acceder a todas las reservaciones de una compañía conociendo su id. Cabe destacar que esta query implementa un span sobre las relaciones de reservation--> room --> hotel--> company_id  a traves del uso del lookup <strong>room__hotel__company_id</strong>. El ORM de django implementa por debajo los JOINs necesarios para llegar hasta la compañía partiendo de las reservaciones. Finalmente la función <strong>reservations_by_date</strong> sería:     
 </p>
 <h6>def reservations_by_date:</h6>
 <h6>&emsp;qs_reservation_dates = Reservation.objects.filter(room__hotel__company_id=self.id).order_by('date_from').values('date_from' , 'date_to')</h6>
@@ -91,7 +91,7 @@
         <p><strong>web</strong> se crea a partir del Dockerfile incluido aquí. Este es una imagen de python3 que instala los paquetes que aparecen dentro de requirements.txt que son: django 3, psycopg2 2.8 el driver para la base de datos postgres, requests 2.28 para hacer peticiones en http y selenium 4.3 para el testing. El servicio <strong>web</strong> también define variables de entorno,puertos,volumen en ./app y comando python runserver que corre al inicio de cada compose-up </p>
     </li>
     <li>
-        <p><strong>browser</strong> se crea a partir de la imagen selenium/standalone-chrome:91.0. Esta imagen implenta un server con chrome browser que es controlado desde el container <strong>web</strong> usando el webdriver remoto de Selenium para poder realizar los test. </p>
+        <p><strong>browser</strong> se crea a partir de la imagen selenium/standalone-chrome:91.0. Esta imagen implenta un server con chrome browser que puede ser controlado desde el container <strong>web</strong> usando el webdriver remoto de Selenium cuando se  realicen los test. </p>
     </li>
 </ul>
 
@@ -111,7 +111,7 @@
 </ol>
 
 <h3>Testing</h3>
-<p>Los tests están en foxes/tests.py y se ejecutan desde el container <strong>web</strong> con el webdriver remoto de selenium. Este se conecta al browser chrome dentro <strong>browser</strong>. </p>
+<p>Los tests están en foxes/tests.py y se ejecutan desde el container <strong>web</strong> con el webdriver remoto de selenium. Este se conecta al browser chrome dentro del container <strong>browser</strong>. </p>
 <p>Pasos para ejecutar el test</p>
 <ol>
   <li>
