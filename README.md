@@ -98,6 +98,9 @@
 <p>Pasos para levantar la app en local</p>
 <ol>
   <li>
+    <p>Clonar el repositorio y ubicarse dentro de sec3 ( cd ./sec3 )</p>
+  </li>
+  <li>
     <p>Ejecutar el comando para levantar docker-compose.yml <strong>web</strong> (en os linux se debe anteponer sudo)</p>
     <code>docker-compose up</code>
   </li>
